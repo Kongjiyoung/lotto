@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Upload</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="card">
+    <div class="card-header"><b>글쓰기 화면입니다</b></div>
+    <div class="card-body">
+        <form id="/" action="/" method="post">
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Enter Video ID" name="videoId">
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Enter title" name="title">
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" rows="5" placeholder="Enter description" name="description"></textarea>
+            </div>
+            <button class="btn btn-primary form-control">Submit Metadata</button>
+        </form>
+
+        <form id="videoForm">
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Enter Video ID" name="videoId">
+            </div>
+            <div class="mb-3">
+                <input type="file" class="form-control" id="videoFile">
+            </div>
+            <button class="btn btn-primary form-control" type="button" onclick="uploadVideo()">Upload Video</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    async function uploadVideo() {
+        const fileInput = document.getElementById('videoFile');
+        if (fileInput.files.length === 0) {
+            alert('Please select a video file.');
+            return;
+        }
+
+        const file = fileInput.files[0];
+        const videoId = document.querySelector('[name="videoId"]').value;
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('videoId', videoId);
+
+        const uploadResponse = await fetch('http://localhost:7000/upload', {
+            method: 'POST',
+            body: formData
+        });
+
+        const uploadResult = await uploadResponse.text();
+        alert(uploadResult);
+    }
+</script>
+</body>
+</html>
