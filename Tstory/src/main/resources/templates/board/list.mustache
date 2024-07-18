@@ -1,0 +1,25 @@
+{{>layout/post-header}}
+
+<div class="container">
+    <div class="my_post_list">
+        {{#boardList}}
+            <div class="my_post_list_item">
+                <div class="my_post_list_item_left">
+                    <div class="my_fakeimg">Fake Image</div>
+                </div>
+                <div class="my_post_list_item_right my_elipse">
+                    <div class="my_text_title">{{title}}</div>
+                    <div class="my_text_body_sm">{{createdAt}}</div>
+                    <div class="my_mt_md_1">
+                        <a href="/user/{{user.id}}/board/{{id}}" class="my_success_btn">Read More</a>
+                    </div>
+                </div>
+            </div>
+        {{/boardList}}
+        {{^boardList}}
+            <div>No boards available</div>
+        {{/boardList}}
+    </div>
+</div>
+
+{{>layout/footer}}
